@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:vm="clr-namespace:MAUITask11.ViewModels"
+             x:DataType="vm:EncodingViewModel"
+             x:Class="MAUITask11.EncodingView">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="10" HorizontalOptions="Center" VerticalOptions="Center">
+            
+            <Label Text="Select your birth day:"/>
+            <DatePicker Format="dd.MM.yyyy" MaximumDate="{x:Static sys:DateTime.Today}" Date="{Binding BirthDay}" />
+            
+            <Label Text="Select your gender:"/>
+            <Picker Title="Gender" ItemDisplayBinding="{Binding Name}" ItemsSource="{Binding Genders}" SelectedItem="{Binding SelectedGender}"/>
+
+            <VerticalStackLayout IsVisible="False" Spacing="10" Padding="10" HorizontalOptions="Center">
+                <Label Text="Generated PESEL is:"/>
+                <Label Text="GENERATED PESEL HERE"/>
+            </VerticalStackLayout>
+            <HorizontalStackLayout Spacing="10" Padding="10" HorizontalOptions="Start">
+            <Button Text="Generate PESEL" Command="{Binding GeneratePESELCommand}"/>
+            <Button Text="Copy to clipboard" Command="{Binding CopyToClipboardCommand}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        
+            
+    </ScrollView>
+
+</ContentPage>
