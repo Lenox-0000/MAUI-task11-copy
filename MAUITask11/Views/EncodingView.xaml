@@ -1,31 +1,66 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:sys="clr-namespace:System;assembly=netstandard"
-             xmlns:vm="clr-namespace:MAUITask11.ViewModels"
-             x:DataType="vm:EncodingViewModel"
-             x:Class="MAUITask11.EncodingView">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUITask11.EncodingView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:vm="clr-namespace:MAUITask11.ViewModels"
+    x:DataType="vm:EncodingViewModel"
+    Title="Generator PESEL">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="10" Padding="10" HorizontalOptions="Center" VerticalOptions="Center">
-            
-            <Label Text="Select your birth day:"/>
-            <DatePicker Format="dd.MM.yyyy" MaximumDate="{x:Static sys:DateTime.Today}" Date="{Binding BirthDay}" />
-            
-            <Label Text="Select your gender:"/>
-            <Picker Title="Gender" ItemDisplayBinding="{Binding Name}" ItemsSource="{Binding Genders}" SelectedItem="{Binding SelectedGender}"/>
+        <VerticalStackLayout Spacing="12" Padding="16">
 
-            <VerticalStackLayout IsVisible="False" Spacing="10" Padding="10" HorizontalOptions="Center">
-                <Label Text="Generated PESEL is:"/>
-                <Label Text="GENERATED PESEL HERE"/>
-            </VerticalStackLayout>
-            <HorizontalStackLayout Spacing="10" Padding="10" HorizontalOptions="Start">
-            <Button Text="Generate PESEL" Command="{Binding GeneratePESELCommand}"/>
-            <Button Text="Copy to clipboard" Command="{Binding CopyToClipboardCommand}"/>
+            <!-- Birth date -->
+            <Label Text="Data urodzenia:" FontAttributes="Bold" />
+            <DatePicker
+                Format="dd.MM.yyyy"
+                MaximumDate="{x:Static sys:DateTime.Today}"
+                Date="{Binding BirthDay}" />
+
+            <!-- Gender picker -->
+            <Label Text="Płeć:" FontAttributes="Bold" />
+            <Picker
+                Title="Wybierz płeć…"
+                ItemDisplayBinding="{Binding Name}"
+                ItemsSource="{Binding Genders}"
+                SelectedItem="{Binding SelectedGender}" />
+
+            <!-- Action buttons -->
+            <HorizontalStackLayout Spacing="10">
+                <Button
+                    Text="Generuj PESEL"
+                    Command="{Binding GeneratePeselCommand}" />
+                <Button
+                    Text="Kopiuj do schowka"
+                    Command="{Binding CopyToClipboardCommand}" />
             </HorizontalStackLayout>
+
+            <!-- Generated PESEL result (hidden until IsGenerated = true) -->
+            <Border
+                IsVisible="{Binding IsGenerated}"
+                Padding="16"
+                BackgroundColor="{AppThemeBinding Light=#F0F4FF, Dark=#1E2A3A}"
+                Stroke="{AppThemeBinding Light=#7B8FC7, Dark=#4A5C8A}"
+                StrokeThickness="1.5">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                    <Label
+                        Text="Wygenerowany PESEL:"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="{Binding GeneratedPesel}"
+                        FontSize="24"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        CharacterSpacing="3" />
+                </VerticalStackLayout>
+            </Border>
+
         </VerticalStackLayout>
-        
-            
     </ScrollView>
 
 </ContentPage>

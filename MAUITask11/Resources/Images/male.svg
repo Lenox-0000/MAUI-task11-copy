@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M9 9c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4-4-1.79-4-4zm10-7h-4.18C14.4 2 14 2.4 14 2.82V4h3.18L15 6.18C13.97 5.44 12.74 5 11.5 5 8.42 5 6 7.42 6 10.5S8.42 16 11.5 16c1.55 0 2.96-.62 3.99-1.61L17 16l1.99-1.99L17 12.5v-1H19V9h-2V7.5l2-2V2zm-7.5 12C9.57 14 8 12.43 8 10.5S9.57 7 11.5 7 15 8.57 15 10.5 13.43 14 11.5 14z"/>
+  <path d="M16 17l-1.5-1.5C13.45 16.45 12.02 17 10.5 17 7.46 17 5 14.54 5 11.5c0-1.52.55-2.95 1.5-4L5 6l1.5-1.5 1.5 1.5C9.05 5.05 10.48 4.5 12 4.5c3.04 0 5.5 2.46 5.5 5.5 0 1.52-.55 2.95-1.5 4L17.5 15.5 16 17z"/>
+  <!-- Simple male symbol -->
+  <circle cx="10" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/>
+  <line x1="14" y1="10" x2="19" y2="5" stroke="currentColor" stroke-width="2"/>
+  <polyline points="15,5 19,5 19,9" fill="none" stroke="currentColor" stroke-width="2"/>
+</svg>

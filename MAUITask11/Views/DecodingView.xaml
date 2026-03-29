@@ -1,10 +1,87 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUITask11.DecodingView">
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUITask11.DecodingView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:MAUITask11.ViewModels"
+    x:DataType="vm:DecodingViewModel"
+    x:Name="xDecodingPage"
+    Title="Dekoder PESEL">
 
-    <ScrollView>
-        
-    </ScrollView>
+    <Grid RowDefinitions="*, Auto" Padding="16">
 
+        <!-- ── RESULTS AREA (hidden until Decoded = true) ── -->
+        <ScrollView Grid.Row="0" IsVisible="{Binding Decoded}">
+            <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto" ColumnSpacing="16">
+
+                <!-- Left column: text data -->
+                <VerticalStackLayout Grid.Column="0" Grid.Row="0" Spacing="12">
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="Płeć:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="{Binding Gender}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="Data urodzenia:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="{Binding BirthDate}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="Wiek:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="{Binding Age}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="Do urodzin:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="{Binding NextBirthdayDays}" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Validity row: icon + text -->
+                    <HorizontalStackLayout Spacing="8" Margin="0,8,0,0">
+                        <Image Source="{Binding ValidityIcon}" WidthRequest="28" HeightRequest="28">
+                            <Image.Behaviors>
+                                <toolkit:IconTintColorBehavior
+                                    BindingContext="{Binding Source={x:Reference xDecodingPage}, Path=BindingContext}"
+                                    TintColor="{Binding ValidityIconColor}" />
+                            </Image.Behaviors>
+                        </Image>
+                        <Label Text="{Binding ValidityText}" VerticalOptions="Center" FontAttributes="Bold"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+                <!-- Right column: gender icon -->
+                <VerticalStackLayout Grid.Column="1" Grid.Row="0"
+                                     VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="{Binding GenderIcon}" WidthRequest="80" HeightRequest="80">
+                        <Image.Behaviors>
+                            <toolkit:IconTintColorBehavior
+                                BindingContext="{Binding Source={x:Reference xDecodingPage}, Path=BindingContext}"
+                                TintColor="{Binding GenderIconColor}" />
+                        </Image.Behaviors>
+                    </Image>
+                </VerticalStackLayout>
+
+            </Grid>
+        </ScrollView>
+
+        <!-- ── BOTTOM INPUT ROW (always visible) ── -->
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" ColumnSpacing="8" Margin="0,12,0,0">
+            <Entry
+                Grid.Column="0"
+                Placeholder="Wpisz numer PESEL…"
+                Text="{Binding Pesel}"
+                Keyboard="Numeric"
+                MaxLength="11"
+                VerticalOptions="Center" />
+            <Button
+                Grid.Column="1"
+                Text="Dekoduj"
+                Command="{Binding DecodePeselCommand}"
+                VerticalOptions="Center" />
+        </Grid>
+
+    </Grid>
 </ContentPage>

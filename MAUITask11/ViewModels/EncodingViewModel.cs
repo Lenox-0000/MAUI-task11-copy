@@ -1,38 +1,66 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MAUITask11.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using MAUITask11.Services;
 
 namespace MAUITask11.ViewModels
 {
     public partial class EncodingViewModel : ObservableObject
     {
+        private readonly PeselService _svc;
 
-        public EncodingViewModel()
+        public EncodingViewModel(PeselService svc)
         {
-            Genders = new List<ItemPicker<Gender>> { new(Gender.Woman, "Woman"), new (Gender.Man, "Man") };
+            _svc = svc;
+            Genders = new List<ItemPicker<Gender>>
+            {
+                new(Gender.Woman, "Kobieta"),
+                new(Gender.Man,   "Mężczyzna")
+            };
+            _birthDay = DateTime.Today;
         }
+
         [ObservableProperty]
         private DateTime _birthDay;
 
+        public List<ItemPicker<Gender>> Genders { get; }
 
-        public List<ItemPicker<Gender>> Genders { get; } 
-
+        // Re-evaluates GeneratePeselCommand.CanExecute when gender selection changes.
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(GeneratePeselCommand))]
         private ItemPicker<Gender>? _selectedGender;
 
-        [RelayCommand]
-        public async Task GeneratePESEL()
-        {
+        // Re-evaluates CopyToClipboardCommand.CanExecute and IsGenerated flag.
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(CopyToClipboardCommand))]
+        [NotifyPropertyChangedFor(nameof(IsGenerated))]
+        private string? _generatedPesel;
 
+        // True once a PESEL has been generated — used for IsVisible on the result Border.
+        public bool IsGenerated => !string.IsNullOrEmpty(GeneratedPesel);
+
+        private bool CanGeneratePesel()   => SelectedGender is not null;
+        private bool CanCopyToClipboard() => IsGenerated;
+
+        [RelayCommand(CanExecute = nameof(CanGeneratePesel))]
+        private async Task GeneratePeselAsync()
+        {
+            try
+            {
+                GeneratedPesel = _svc.Encode(BirthDay, SelectedGender!.Value);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Błąd", ex.Message, "OK");
+            }
         }
 
-        [RelayCommand]
-        public async Task CopyToClipboard()
+        [RelayCommand(CanExecute = nameof(CanCopyToClipboard))]
+        private async Task CopyToClipboardAsync()
         {
-
+            await Clipboard.SetTextAsync(GeneratedPesel);
+            await Toast.Make("PESEL skopiowany do schowka").Show();
         }
     }
 }
