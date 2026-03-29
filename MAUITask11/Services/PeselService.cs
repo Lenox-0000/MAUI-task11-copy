@@ -18,7 +18,7 @@ namespace MAUITask11.Services
                 throw new InvalidPeselLengthException(pesel.Length);
 
             if (!pesel.All(char.IsDigit))
-                throw new ArgumentException("PESEL może zawierać tylko cyfry.");
+                throw new ArgumentException("PESEL can contain only numbers.");
 
             int[] d = pesel.Select(c => c - '0').ToArray();
             int rr = d[0] * 10 + d[1];
@@ -35,7 +35,7 @@ namespace MAUITask11.Services
 
             DateTime birthDate;
             try { birthDate = new DateTime(year, month, dd); }
-            catch { throw new ArgumentException($"Nieprawidłowa data w PESEL: {dd:D2}.{month:D2}.{year}."); }
+            catch { throw new ArgumentException($"Invalid date in PESEL: {dd:D2}.{month:D2}.{year}."); }
 
             return new Human
             {
@@ -45,9 +45,6 @@ namespace MAUITask11.Services
             };
         }
 
-        /// <summary>
-        /// Encodes a birth date and gender into a valid 11-digit PESEL string.
-        /// </summary>
         public string Encode(DateTime date, Gender gender)
         {
             string part = EncodeBirthDate(date) + EncodePpp(gender);
@@ -55,7 +52,6 @@ namespace MAUITask11.Services
             return part + CalcCheck(digits);
         }
 
-        // --- private helpers ---
 
         private static string EncodeBirthDate(DateTime d)
         {

@@ -5,7 +5,7 @@ namespace MAUITask11.Exceptions
         public int RawMonth { get; private set; }
 
         public InvalidPeselMonthException(int rawMonth)
-            : base($"Nieprawidłowy miesiąc w PESEL: {rawMonth}.")
+            : base($"Invalid month in PESEL: {rawMonth}.")
         {
             RawMonth = rawMonth;
         }

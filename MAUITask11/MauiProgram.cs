@@ -24,14 +24,11 @@ namespace MAUITask11
                     options.SetShouldEnableSnackbarOnWindows(true);
                 });
 
-            // ── Services (singleton — one instance for the whole app lifetime) ──
             builder.Services.AddSingleton<PeselService>();
 
-            // ── ViewModels ──
             builder.Services.AddSingleton<DecodingViewModel>();
             builder.Services.AddSingleton<EncodingViewModel>();
 
-            // ── Views ──
             builder.Services.AddSingleton<DecodingView>();
             builder.Services.AddSingleton<EncodingView>();
 

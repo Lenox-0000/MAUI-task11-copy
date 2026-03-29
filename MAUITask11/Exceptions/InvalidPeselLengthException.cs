@@ -5,7 +5,7 @@ namespace MAUITask11.Exceptions
         public int Length { get; private set; }
 
         public InvalidPeselLengthException(int length)
-            : base($"Nieprawidłowa długość PESEL: {length}. PESEL powinien składać się z 11 cyfr.")
+            : base($"Invalid PESEL length: {length}. PESEL should consist of 11 digits.")
         {
             Length = length;
         }

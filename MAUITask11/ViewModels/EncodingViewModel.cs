@@ -52,7 +52,7 @@ namespace MAUITask11.ViewModels
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Błąd", ex.Message, "OK");
+                await Shell.Current.DisplayAlertAsync("Błąd", ex.Message, "OK");
             }
         }
 

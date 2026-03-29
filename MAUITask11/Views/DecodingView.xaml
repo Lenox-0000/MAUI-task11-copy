@@ -7,38 +7,35 @@
     xmlns:vm="clr-namespace:MAUITask11.ViewModels"
     x:DataType="vm:DecodingViewModel"
     x:Name="xDecodingPage"
-    Title="Dekoder PESEL">
+    Title="PESEL Decoding">
 
     <Grid RowDefinitions="*, Auto" Padding="16">
 
-        <!-- ── RESULTS AREA (hidden until Decoded = true) ── -->
         <ScrollView Grid.Row="0" IsVisible="{Binding Decoded}">
             <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto" ColumnSpacing="16">
 
-                <!-- Left column: text data -->
                 <VerticalStackLayout Grid.Column="0" Grid.Row="0" Spacing="12">
 
                     <HorizontalStackLayout Spacing="6">
-                        <Label Text="Płeć:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="Gender:" FontAttributes="Bold" VerticalOptions="Center"/>
                         <Label Text="{Binding Gender}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="6">
-                        <Label Text="Data urodzenia:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="Birth date:" FontAttributes="Bold" VerticalOptions="Center"/>
                         <Label Text="{Binding BirthDate}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="6">
-                        <Label Text="Wiek:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="Age:" FontAttributes="Bold" VerticalOptions="Center"/>
                         <Label Text="{Binding Age}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
 
                     <HorizontalStackLayout Spacing="6">
-                        <Label Text="Do urodzin:" FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Text="Days till birthday:" FontAttributes="Bold" VerticalOptions="Center"/>
                         <Label Text="{Binding NextBirthdayDays}" VerticalOptions="Center"/>
                     </HorizontalStackLayout>
 
-                    <!-- Validity row: icon + text -->
                     <HorizontalStackLayout Spacing="8" Margin="0,8,0,0">
                         <Image Source="{Binding ValidityIcon}" WidthRequest="28" HeightRequest="28">
                             <Image.Behaviors>
@@ -52,7 +49,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- Right column: gender icon -->
                 <VerticalStackLayout Grid.Column="1" Grid.Row="0"
                                      VerticalOptions="Center" HorizontalOptions="Center">
                     <Image Source="{Binding GenderIcon}" WidthRequest="80" HeightRequest="80">
@@ -67,18 +63,17 @@
             </Grid>
         </ScrollView>
 
-        <!-- ── BOTTOM INPUT ROW (always visible) ── -->
         <Grid Grid.Row="1" ColumnDefinitions="*, Auto" ColumnSpacing="8" Margin="0,12,0,0">
             <Entry
                 Grid.Column="0"
-                Placeholder="Wpisz numer PESEL…"
+                Placeholder="Enter PESEL:"
                 Text="{Binding Pesel}"
                 Keyboard="Numeric"
                 MaxLength="11"
                 VerticalOptions="Center" />
             <Button
                 Grid.Column="1"
-                Text="Dekoduj"
+                Text="Decode"
                 Command="{Binding DecodePeselCommand}"
                 VerticalOptions="Center" />
         </Grid>

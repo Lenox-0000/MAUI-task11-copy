@@ -6,37 +6,33 @@
     xmlns:sys="clr-namespace:System;assembly=netstandard"
     xmlns:vm="clr-namespace:MAUITask11.ViewModels"
     x:DataType="vm:EncodingViewModel"
-    Title="Generator PESEL">
+    Title="Pesel Encoding">
 
     <ScrollView>
         <VerticalStackLayout Spacing="12" Padding="16">
 
-            <!-- Birth date -->
-            <Label Text="Data urodzenia:" FontAttributes="Bold" />
+            <Label Text="Birth day:" FontAttributes="Bold" />
             <DatePicker
                 Format="dd.MM.yyyy"
                 MaximumDate="{x:Static sys:DateTime.Today}"
                 Date="{Binding BirthDay}" />
 
-            <!-- Gender picker -->
-            <Label Text="Płeć:" FontAttributes="Bold" />
+            <Label Text="Gender:" FontAttributes="Bold" />
             <Picker
-                Title="Wybierz płeć…"
+                Title="Select gender"
                 ItemDisplayBinding="{Binding Name}"
                 ItemsSource="{Binding Genders}"
                 SelectedItem="{Binding SelectedGender}" />
 
-            <!-- Action buttons -->
             <HorizontalStackLayout Spacing="10">
                 <Button
-                    Text="Generuj PESEL"
+                    Text="Generate PESEL"
                     Command="{Binding GeneratePeselCommand}" />
                 <Button
-                    Text="Kopiuj do schowka"
+                    Text="Copy to clipboard"
                     Command="{Binding CopyToClipboardCommand}" />
             </HorizontalStackLayout>
 
-            <!-- Generated PESEL result (hidden until IsGenerated = true) -->
             <Border
                 IsVisible="{Binding IsGenerated}"
                 Padding="16"
@@ -48,7 +44,7 @@
                 </Border.StrokeShape>
                 <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
                     <Label
-                        Text="Wygenerowany PESEL:"
+                        Text="Generated PESEL:"
                         FontAttributes="Bold"
                         HorizontalOptions="Center" />
                     <Label
