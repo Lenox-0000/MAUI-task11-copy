@@ -26,12 +26,10 @@ namespace MAUITask11.ViewModels
 
         public List<ItemPicker<Gender>> Genders { get; }
 
-        // Re-evaluates GeneratePeselCommand.CanExecute when gender selection changes.
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(GeneratePeselCommand))]
         private ItemPicker<Gender>? _selectedGender;
 
-        // Re-evaluates CopyToClipboardCommand.CanExecute and IsGenerated flag.
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(CopyToClipboardCommand))]
         [NotifyPropertyChangedFor(nameof(IsGenerated))]
